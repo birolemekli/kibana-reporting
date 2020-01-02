@@ -1,6 +1,9 @@
 # coding=utf-8
 from time import sleep
 import datetime
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class ScreenShotPage:
     def __init__(self,driver,screenshot_url):
@@ -10,9 +13,9 @@ class ScreenShotPage:
     def screenShotPage(self):
         try:
             self.driver.get(self.screenshot_url)
-            sleep(10)
+            dashboard=WebDriverWait(self.driver,10).until(EC.visibility_of_element_located((By.XPATH,"//*[@id=\"kibana-body\"]/div/div[2]/div[1]/nav/a")))
+            assert dashboard=="Dashboard"
             name = self.driver.find_element_by_xpath('//*[@id="kibana-body"]/div/div[2]/div[1]/nav/span').text
-            sleep(1)
             print ('{0} yuklenmesi icin bekleniyor...'.format(name))
             full = self.driver.find_element_by_xpath('//*[@id="kibana-body"]/div/div[3]/div/div[2]/dashboard-app/kbn-top-nav/kbn-top-nav-helper/span/div[1]/div[1]/button/span/span')
             full.click()

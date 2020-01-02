@@ -1,5 +1,10 @@
 # coding=utf-8
 from time import sleep
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
 
 class KibanaLoginPage:
     def __init__(self,driver):
@@ -11,20 +16,16 @@ class KibanaLoginPage:
     def loginPage(self):
         print("Kibana'ya giriş yapılıyor...")
         self.driver.get(self.__kibana_url)
-        sleep(4)
+        WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="sg.username"]')))
         try:
-
             _username = self.driver.find_element_by_id('sg.username')
             _username.clear()
             _username.send_keys(self.__kibana_username)
-            sleep(0.5)
             _password = self.driver.find_element_by_id('sg.password')
             _password.clear()
             _password.send_keys(self.__kibana_password)
-            sleep(0.5)
             button = self.driver.find_element_by_id('sg.login')
             button.click()
-            sleep(0.5)
             return self.driver
         except:
             print ('Login sayfasinda bir hata meydana geldi...')
