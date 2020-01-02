@@ -4,7 +4,7 @@
 
 ### İlk olarak selenium kurulumu ile başlayalım
 
-`$ pip install selenium`
+`$ pip install -r requirements.txt`
 
 - chromedriver_path yeri belirtilir
 - short_screenshots kibana dashboard short url bilgileri girilir. Birden fazla olan url , ile ayrılarak diziye eklenir.
